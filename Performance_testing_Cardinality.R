@@ -230,7 +230,10 @@ modelFit <- randomForest(Class ~., data = training)
 prediction <- predict(modelFit, testing)
 
 
-testing$prediction<-prediction
+testing$PredMin<-prediction
+
+write.csv(testing,"C:/Users/rifat/Desktop/R_milan/githubRepo/RDFShapeInduction/RDFShapeInduction/dataset/dbp-person-max-cardinality.csv",row.names =   FALSE)
+
 
 # -------------------------------------------------
 # Max cardinality
@@ -314,6 +317,7 @@ modelFit <- randomForest(Class ~., data = training)
 prediction <- predict(modelFit, testing)
 
 
-testing$prediction<-prediction
+testing$PredMax<-prediction
 
 
+write.csv(testing,"C:/Users/rifat/Desktop/R_milan/githubRepo/RDFShapeInduction/RDFShapeInduction/dataset/dbp-person-max-cardinality.csv",row.names =   FALSE)
