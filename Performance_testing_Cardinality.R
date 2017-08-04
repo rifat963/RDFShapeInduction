@@ -4,6 +4,8 @@ library(mlbench)
 library(caret)
 library(klaR)
 library(randomForest)
+library(ggplot2)
+
 
 
 # Function For loading training dataSets
@@ -90,7 +92,7 @@ ML_algorithms<-function(training_data){
   
   
   # collect resamples
-  results <- resamples(list(CART=fit.cart,bayes=fit.bayes , SVM=fit.svm, KNN=fit.knn,RF=fit.rf, NNET=fit.nnet,GBM=fit.gbm,C45=fit.c45, Logistic_R=fit.logic))
+  results <- resamples(list(DecisionTree.CART=fit.cart,Bayesian=fit.bayes , SupportVectorMachine.SVM=fit.svm, KNN=fit.knn,RandomForest.RF=fit.rf,NeuralNetwork.NNET=fit.nnet,GradiantBoost.GBM=fit.gbm,DecisionTree.C45=fit.c45, LogisticRegression=fit.logic))
   
   return(results)
 }
@@ -153,6 +155,8 @@ bwplot(results, scales=scales)
 #--------------------------------------------------
 
 training  <- load_dataSet("dbp-card-training.csv")
+unique(OntoProperty)
+
 attach(training) #attaching data frame to reduce the length of the variable names associated to it.
 
 head(training)
@@ -232,7 +236,7 @@ prediction <- predict(modelFit, testing)
 
 testing$PredMin<-prediction
 
-write.csv(testing,"C:/Users/rifat/Desktop/R_milan/githubRepo/RDFShapeInduction/RDFShapeInduction/dataset/dbp-person-max-cardinality.csv",row.names =   FALSE)
+write.csv(testing,"C:/Users/rifat/Desktop/R_milan/githubRepo/RDFShapeInduction/RDFShapeInduction/dataset/dbp-person-min-cardinality.csv",row.names =   FALSE)
 
 
 # -------------------------------------------------
@@ -240,6 +244,9 @@ write.csv(testing,"C:/Users/rifat/Desktop/R_milan/githubRepo/RDFShapeInduction/R
 # -------------------------------------------------
 
 training  <- load_dataSet("dbp-card-training.csv")
+
+
+
 attach(training) #attaching data frame to reduce the length of the variable names associated to it.
 
 head(training)
@@ -309,6 +316,9 @@ for (i in 1:3){
 mean(accuracies)
 
 modelFit <- randomForest(Class ~., data = training)
+
+write.csv(training,"C:/Users/rifat/Desktop/R_milan/githubRepo/RDFShapeInduction/RDFShapeInduction/dataset/dbp-max-training.csv",row.names =   FALSE)
+
 
 # nrow(testing)
 # 
