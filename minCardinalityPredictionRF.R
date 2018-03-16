@@ -7,7 +7,7 @@ library(mlbench)
 library(caret)
 library(klaR)
 library(randomForest)
-
+library(OneR)
 # Function for smote 
 
 smote_data<-function(data,over.val,under.val){
@@ -18,9 +18,16 @@ smote_data<-function(data,over.val,under.val){
 }
 
 training  <- load_dataSet("dbp-card-training.csv")
+
 attach(training) #attaching data frame to reduce the length of the variable names associated to it.
 training<-training[,c(2,3,5)]
 head(training)
+
+data<-optbin(training)
+model<-OneR(data,verbose = TRUE)
+
+summary(model)
+
 
 testing   <-  load_dataSet("dbo_person_test.csv")
 
@@ -76,7 +83,7 @@ training <- training[,-col_names]
 library(randomForest)
 first_seed <- 123355
 accuracies <-c()
-for (i in 1:3){
+for (i in 1:10){
   set.seed(first_seed)
   first_seed <- first_seed+1
   trainIndex <- createDataPartition(y=training$Class, p=0.75, list=FALSE)
@@ -109,3 +116,4 @@ prediction <- predict(modelFit, testing)
 testing$prediction<-prediction
 
 minCardinality<-testing
+
